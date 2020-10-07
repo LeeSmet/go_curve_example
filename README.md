@@ -1,3 +1,19 @@
 # Curve example
 
 example of deriving a shared secret from 2 ed25519 keypairs
+
+## Building
+
+In this directory: `go build`
+
+## Example output
+
+```
+Alice private key: b656520ee7532ea47f9a052861bb2f5f2ace2a9ed2b49df624f2e56b0e818ed931c89407e22fc964a6572ef6be22394ad4a144c006b7806e617107497c1ba3fd
+Alice public key: 31c89407e22fc964a6572ef6be22394ad4a144c006b7806e617107497c1ba3fd
+Bob private key: cc3007fcb893bdd2f5fd0f03db093f24da231cf18f01030721767fa9ae24562570ac963b25bc34b2bad92884323ca774c458aa1676a815bf660b899a868cda17
+Bob public key: 70ac963b25bc34b2bad92884323ca774c458aa1676a815bf660b899a868cda17
+
+Alice shared secret: 9ea807198973aeab0edfd187591370f62ddad59dfcf1c46ab1b667b461172a78
+Bob shared secret: 9ea807198973aeab0edfd187591370f62ddad59dfcf1c46ab1b667b461172a78
+```
