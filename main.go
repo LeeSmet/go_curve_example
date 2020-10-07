@@ -30,19 +30,23 @@ func main() {
 	fmt.Printf("Bob private key: %s\n", hex.EncodeToString(bobPrivkey))
 	fmt.Printf("Bob public key: %s\n", hex.EncodeToString(bobPubkey))
 
-	var aliceSs, bobSs [32]byte
-
 	aliceCurvePriv := PrivateKeyToCurve(alicePrivkey)
 	aliceCurvePub := PublicKeyToCurve(alicePubkey)
 	bobCurvePriv := PrivateKeyToCurve(bobPrivkey)
 	bobCurvePub := PublicKeyToCurve(bobPubkey)
 
-	curve25519.ScalarMult(&aliceSs, &aliceCurvePriv, &bobCurvePub)
-	curve25519.ScalarMult(&bobSs, &bobCurvePriv, &aliceCurvePub)
+	aliceSs, err := curve25519.X25519(aliceCurvePriv[:], bobCurvePub[:])
+	if err != nil {
+		panic(err)
+	}
+	bobSs, err := curve25519.X25519(bobCurvePriv[:], aliceCurvePub[:])
+	if err != nil {
+		panic(err)
+	}
 
 	fmt.Println()
-	fmt.Printf("Alice shared secret: %s\n", hex.EncodeToString(aliceSs[:]))
-	fmt.Printf("Bob shared secret: %s\n", hex.EncodeToString(bobSs[:]))
+	fmt.Printf("Alice shared secret: %s\n", hex.EncodeToString(aliceSs))
+	fmt.Printf("Bob shared secret: %s\n", hex.EncodeToString(bobSs))
 }
 
 func PrivateKeyToCurve(privateKey ed25519.PrivateKey) [32]byte {
